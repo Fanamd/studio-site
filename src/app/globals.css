@@ -1,16 +1,84 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-:root { color-scheme: dark; }
-html, body { height: 100%; }
 
-body{
+/* ---------- Base ---------- */
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
   background:
-    radial-gradient(1200px 700px at 20% 10%, rgba(60,251,255,.12), transparent 55%),
-    radial-gradient(900px 600px at 85% 20%, rgba(255,60,242,.10), transparent 55%),
-    radial-gradient(800px 500px at 60% 90%, rgba(139,92,255,.10), transparent 55%),
+    radial-gradient(
+      1200px 700px at 20% 10%,
+      rgba(60, 251, 255, 0.12),
+      transparent 55%
+    ),
+    radial-gradient(
+      900px 600px at 85% 20%,
+      rgba(255, 60, 242, 0.1),
+      transparent 55%
+    ),
+    radial-gradient(
+      800px 500px at 60% 90%,
+      rgba(139, 92, 255, 0.1),
+      transparent 55%
+    ),
     #070812;
   overflow-x: hidden;
-  color: rgba(255,255,255,.9);
+  color: rgba(255, 255, 255, 0.9);
+  font-feature-settings: "ss01", "ss02";
+}
+
+/* ---------- Glass ---------- */
+
+.glass {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.08),
+    rgba(255, 255, 255, 0.03)
+  );
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+/* ---------- Neon ---------- */
+
+.neon-border {
+  border: 1px solid rgba(60, 251, 255, 0.18);
+  box-shadow:
+    0 0 0 1px rgba(255, 60, 242, 0.1) inset,
+    0 0 22px rgba(60, 251, 255, 0.12);
+}
+
+/* ---------- Hover ---------- */
+
+.glow-hover {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.glow-hover:hover {
+  box-shadow:
+    0 0 0 1px rgba(60, 251, 255, 0.24) inset,
+    0 0 36px rgba(255, 60, 242, 0.16);
+  transform: translateY(-2px);
+}
+
+/* ---------- Inputs ---------- */
+
+input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* ---------- Selection ---------- */
+
+::selection {
+  background: rgba(60, 251, 255, 0.25);
+  color: white;
 }
