@@ -1,5 +1,5 @@
 "use client";
-
+import type { ChangeEvent, Dispatch, SetStateAction } from "react";
 import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 
@@ -34,6 +34,9 @@ export default function ContactForm() {
   // Trigger a shake when we hit an error
   const [shakeKey, setShakeKey] = useState(0);
 
+  type FieldName = keyof FieldErrors;
+  type InputEvent = React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>;
+
   function clearFieldError(field: keyof FieldErrors) {
     setFieldErrors((prev) => {
       if (!prev[field]) return prev;
@@ -41,6 +44,22 @@ export default function ContactForm() {
       delete next[field];
       return next;
     });
+  }
+
+  function resetErrors(field: FieldName) {
+    clearFieldError(field);
+    if (formError) setFormError("");
+    if (status === "error") setStatus("idle");
+  }
+
+  function handleFieldChange(
+    field: FieldName,
+    setter: Dispatch<SetStateAction<string>>,
+  ) {
+    return (e: InputEvent) => {
+      setter(e.target.value);
+      resetErrors(field);
+    };
   }
 
   // Basic client-side checks (server still validates with Zod)
@@ -155,12 +174,7 @@ export default function ContactForm() {
       <div className="flex flex-col gap-1">
         <input
           value={name}
-          onChange={(e) => {
-            setName(e.target.value);
-            clearFieldError("name");
-            if (formError) setFormError("");
-            if (status === "error") setStatus("idle");
-          }}
+          onChange={handleFieldChange("name", setName)}
           type="text"
           required
           minLength={2}
@@ -175,12 +189,7 @@ export default function ContactForm() {
       <div className="flex flex-col gap-1">
         <input
           value={email}
-          onChange={(e) => {
-            setEmail(e.target.value);
-            clearFieldError("email");
-            if (formError) setFormError("");
-            if (status === "error") setStatus("idle");
-          }}
+          onChange={handleFieldChange("email", setEmail)}
           type="email"
           required
           placeholder="Your email"
@@ -194,12 +203,7 @@ export default function ContactForm() {
       <div className="flex flex-col gap-1">
         <textarea
           value={message}
-          onChange={(e) => {
-            setMessage(e.target.value);
-            clearFieldError("message");
-            if (formError) setFormError("");
-            if (status === "error") setStatus("idle");
-          }}
+          onChange={handleFieldChange("message", setMessage)}
           required
           minLength={10}
           rows={4}
