@@ -1,6 +1,5 @@
 @import "tailwindcss";
 
-
 /* ---------- Base ---------- */
 
 :root {
@@ -12,6 +11,7 @@ body {
   height: 100%;
 }
 
+html,
 body {
   background:
     radial-gradient(
@@ -60,7 +60,9 @@ body {
 /* ---------- Hover ---------- */
 
 .glow-hover {
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .glow-hover:hover {
